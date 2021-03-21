@@ -1,6 +1,6 @@
 import pytest
 
-from topic_61_strings.utils import find_divisors
+from alogs_1.topic_61_strings.utils import find_divisors
 
 
 class TestFindDivisors:

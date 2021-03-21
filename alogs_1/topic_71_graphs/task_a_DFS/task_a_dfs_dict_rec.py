@@ -1,19 +1,16 @@
-from collections import deque as Q
-
-# filename = 'task_a_test_2.txt'
+# filename = 'task_a_test_1.txt'
 filename = 'input.txt'
-# filename = 'task_b_11.txt'
-
+# filename = 'task_a_05.txt'
+import sys
+sys.setrecursionlimit(10**5)
 
 """
-Хранение графа в виде списков смежности
+Вариант, с хранением графа в виде списков смежности.
 """
 
 
 def read_data():
-
     with open(filename) as f:
-
         nodes_num, edges_num = map(int, f.readline().split())
         gr = dict()
         visited = [0] * (nodes_num + 1)
@@ -42,32 +39,25 @@ def read_data():
         return gr, start_node, visited
 
 
+def dfs(gr, start, visited, result=None):
+    """
+    resursion for DFS
+    """
+    result = result or list()
 
-def bfs(gr, start, visited):
-    """
-    recursion for BFS
-    """
-    result = list()
-    q = Q()
-    q.append(start)
+    result.append(str(start))
     visited[start] = 1
-
-    while len(q) > 0:
-        start = q.popleft()
-
-        result.append(str(start))
-        next_nodes = gr.get(start, None)
-
-        if next_nodes:
-            for el in next_nodes:
-                if el != 0 and visited[el] != 1:
-                    visited[el] = 1
-                    q.append(el)
+    next_nodes = gr.get(start)
+    if next_nodes:
+        for el in next_nodes:
+            if el != 0 and visited[el] != 1:
+                dfs(gr, el, visited, result)
 
     return result
 
 
+
 if __name__ == '__main__':
     gr, start_node, visited = read_data()
-    res = bfs(gr, start_node, visited)
+    res = dfs(gr, start_node, visited)
     print(' '.join(res))

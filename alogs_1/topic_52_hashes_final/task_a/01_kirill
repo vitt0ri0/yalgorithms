@@ -1,0 +1,5 @@
+4
+post https://yandex.com yandex content
+post https://yandex.com mail content
+get https://0.com
+get https://1.com
